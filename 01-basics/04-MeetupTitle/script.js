@@ -7,12 +7,15 @@ const app = createApp({
     return {
       currentMeetup: undefined,
       radio: undefined,
+      loading: false,
     };
   },
   watch: {
     radio(newVal) {
+      this.loading = true;
       this.fetchMeetupById(newVal).then((data) => {
         this.currentMeetup = data;
+        this.loading = false;
       });
     },
   },

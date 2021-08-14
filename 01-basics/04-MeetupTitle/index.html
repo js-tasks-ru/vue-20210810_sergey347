@@ -14,7 +14,8 @@
 
         <hr />
 
-        <h3>{{ !currentMeetup ? 'Choose radio button' : currentMeetup.title }}</h3>
+        <h3 v-if="loading">Loading...</h3>
+        <h3 v-else>{{ !currentMeetup ? 'Choose radio button' : currentMeetup.title }}</h3>
       </div>
     </div>
 
