@@ -2,20 +2,46 @@ import { defineComponent } from './vendor/vue.esm-browser.js';
 
 export default defineComponent({
   name: 'MeetupInfo',
+  props: {
+    organizer: {
+      type: String,
+      required: true,
+    },
+    place: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    timestampToIsoString() {
+      return new Date(this.date).toISOString().substr(0, 10);
+    },
+    timestampToLocalDate() {
+      return new Date(this.date).toLocaleDateString(navigator.language, {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+    },
+  },
 
   template: `
     <ul class="meetup-info">
       <li>
         <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-user.svg" />
-        Организатор
+        {{ organizer }}
       </li>
       <li>
         <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-map.svg" />
-        Место
+        {{ place }}
       </li>
       <li>
         <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-        <time datetime="2020-01-01">1 янв. 2020</time>
+        <time :datetime="timestampToIsoString">{{ timestampToLocalDate }}</time>
       </li>
     </ul>`,
 });
