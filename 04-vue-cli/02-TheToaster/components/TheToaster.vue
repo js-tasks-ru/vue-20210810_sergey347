@@ -1,7 +1,7 @@
 <template>
   <div class="toasts">
     <div v-for="(item, index) in items" :key="item.toastType + index">
-      <ui-toaster :toast-type="item.toastType" :toast-icon="item.toastIcon" :toast-message="item.toastMessage" />
+      <ui-toaster :class-type="item.classType" :toast-icon="item.toastIcon" :toast-message="item.toastMessage" />
     </div>
   </div>
 </template>
@@ -19,6 +19,16 @@ export default {
   data() {
     return {
       items: [],
+      successProps: {
+        toastType: 'success',
+        classType: 'toast_success',
+        toastIcon: 'check-circle',
+      },
+      errorProps: {
+        toastType: 'error',
+        classType: 'toast_error',
+        toastIcon: 'alert-circle',
+      },
     };
   },
   methods: {
@@ -32,8 +42,7 @@ export default {
       const id = Date.now();
       this.items.push({
         id: id,
-        toastType: 'success',
-        toastIcon: 'check-circle',
+        ...this.successProps,
         toastMessage: message,
       });
       setTimeout(this.removeThisItem, SUCCESS_DELAY, id);
@@ -42,8 +51,7 @@ export default {
       const id = Date.now();
       this.items.push({
         id: id,
-        toastType: 'error',
-        toastIcon: 'alert-circle',
+        ...this.errorProps,
         toastMessage: message,
       });
       setTimeout(this.removeThisItem, ERROR__DELAY, id);

@@ -1,6 +1,6 @@
 <template>
-  <div class="toast" :class="classByType">
-    <ui-icon class="toast__icon" :icon="localIcon" />
+  <div class="toast" :class="classType">
+    <ui-icon class="toast__icon" :icon="toastIcon" />
     <span>{{ toastMessage }}</span>
   </div>
 </template>
@@ -12,9 +12,9 @@ export default {
   name: 'UiToaster',
   components: { UiIcon },
   props: {
-    toastType: {
-      tye: String,
-      default: null,
+    classType: {
+      type: String,
+      default: '',
     },
     toastIcon: {
       type: String,
@@ -23,27 +23,6 @@ export default {
     toastMessage: {
       type: String,
       default: null,
-    },
-  },
-  computed: {
-    classByType() {
-      switch (this.toastType) {
-        case 'success':
-          return 'toast_success';
-        case 'error':
-          return 'toast_error';
-        default:
-          return '';
-      }
-    },
-    localType() {
-      return this.toastType;
-    },
-    localIcon() {
-      return this.toastIcon;
-    },
-    localMessage() {
-      return this.toastMessage;
     },
   },
 };
